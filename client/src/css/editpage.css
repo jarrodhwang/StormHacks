@@ -46,3 +46,7 @@
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+body {
+  font-family: 'Fredoka', sans-serif;
+}
