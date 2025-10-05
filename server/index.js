@@ -1,7 +1,12 @@
+// index.js
 import express from "express";
 import cors from "cors";
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
+
+// ✅ Import routers
+import Create from "./CRUD/Create.js";
+import Read from "./CRUD/Read.js";
 
 const app = express();
 const PORT = 5000;
@@ -9,22 +14,17 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-app.get("/api/hello", (req, res) => {
-  res.json({ message: "Hello from Node.js backend!" });
-});
-
-app.listen(PORT, () => console.log(`✅ Server running on http://localhost:${PORT}`));
-
-
-// Create and open the database
+// ✅ Create and open the SQLite database
 const dbPromise = open({
   filename: "./database.db",
   driver: sqlite3.Database,
 });
 
-// Create a sample table if not exists
+// ✅ Initialize the database
 (async () => {
   const db = await dbPromise;
+
+  // Create user table
   await db.exec(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -32,25 +32,24 @@ const dbPromise = open({
       age INTEGER
     )
   `);
-  console.log("✅ SQLite database connected and table ready");
+
+  // Create product table
+  await db.exec(`
+    CREATE TABLE IF NOT EXISTS products (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT,
+      price REAL
+    )
+  `);
+
+  console.log("✅ SQLite database connected and tables ready");
 })();
 
-// API: Get all users
-app.get("/api/users", async (req, res) => {
-  const db = await dbPromise;
-  const users = await db.all("SELECT * FROM users");
-  res.json(users);
-});
+// ✅ Register your routes here
+app.use("/api/create", Create(dbPromise));
+app.use("/api/read", Read(dbPromise));
 
-// API: Add user
-app.post("/api/users", async (req, res) => {
-  const { name, age } = req.body;
-  const db = await dbPromise;
-  await db.run("INSERT INTO users (name, age) VALUES (?, ?)", [name, age]);
-  res.json({ message: "User added!" });
-});
-
+// ✅ Start server
 app.listen(PORT, () =>
   console.log(`✅ Server running on http://localhost:${PORT}`)
 );
-
