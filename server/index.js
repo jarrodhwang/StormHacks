@@ -5,8 +5,8 @@ import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 
 // ✅ Import routers
-import Create from "./CRUD/Create.js";
-import Read from "./CRUD/Read.js";
+import createRoute from "./CRUD/Create.js";
+import readRoute from "./CRUD/Read.js";
 
 const app = express();
 const PORT = 5000;
@@ -46,8 +46,8 @@ const dbPromise = open({
 })();
 
 // ✅ Register your routes here
-app.use("/api/create", Create(dbPromise));
-app.use("/api/read", Read(dbPromise));
+app.use("/api/create", createRoute(dbPromise));
+app.use("/api/read", readRoute(dbPromise));
 
 // ✅ Start server
 app.listen(PORT, () =>
