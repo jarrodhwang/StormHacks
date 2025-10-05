@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="../img/icon.svg">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../css/main.css">
+        <title>APP NAME</title>
+    </head>
+    <body>
+        <div class="content-container">
+            <div class="nav-top">
+                <img class="logo-mini" src="../img/logo_mini.png">
+            </div>
+            <div>
+                <div>
+                    <!--TODO: Logo Image should be here-->
+                    <img src="../img/logo_temp.jpeg">
+                </div>
+                <div class="main-btn">
+                    <button class="btn-make-calendar">Make a calendar!</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-info" id="modal">
+        <form id="info-form">
+            <div class="input-sender">
+                <label for="sender" class="form-label">From:</label>
+                <input type="text" id="sender" name="sender" placeholder="Who's sending it">
+                <input type="checkbox">
+            </div>
+            <div classs="input-receiver">
+                <label for="receiver" class="form-label">To:</label>
+                <input type="email" id="receiver" name="receiver" placeholder="Write email...">
+                <input type="checkbox">
+            </div>
+            <div class="info-button">
+                <button type="submit">Start</button>
+                <button type="button" id="cancel-btn">Cancel</button>
+            </div>
+        </form>
+    </div>
+        <script src="../javascript/main.js"></script>
+    </body>
+
+</html>
